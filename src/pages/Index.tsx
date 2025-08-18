@@ -1,11 +1,33 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState } from "react";
+import Navigation from "@/components/Navigation";
+import HomePage from "@/components/HomePage";
+import Dashboard from "@/components/Dashboard";
+import PipelinePage from "@/components/PipelinePage";
+import MonitoringPage from "@/components/MonitoringPage";
 
 const Index = () => {
+  const [activeTab, setActiveTab] = useState("home");
+
+  const renderContent = () => {
+    switch (activeTab) {
+      case "home":
+        return <HomePage setActiveTab={setActiveTab} />;
+      case "dashboard":
+        return <Dashboard />;
+      case "pipeline":
+        return <PipelinePage />;
+      case "monitoring":
+        return <MonitoringPage />;
+      default:
+        return <HomePage setActiveTab={setActiveTab} />;
+    }
+  };
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
+    <div className="min-h-screen p-4 lg:p-8">
+      <div className="max-w-7xl mx-auto">
+        <Navigation activeTab={activeTab} setActiveTab={setActiveTab} />
+        {renderContent()}
       </div>
     </div>
   );
